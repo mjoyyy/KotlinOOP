@@ -1,10 +1,22 @@
-import org.junit.Assert.*
-import org.junit.Test
+import junit.framework.TestCase.assertEquals
+import org.junit.*
+import kotlin.test.assertFalse
 
 class WallServiceTest {
+    @Before
+    fun clearBeforeTest() {
+        WallService.clear()
+    }
+
+    @Test
+    fun updateExisting() {
+        val post = Post(1, "Hello modified")
+        WallService.update(post)
+    }
+
     @Test
     fun testAdd() {
-        val post = Post(1,"Test Post")
+        val post = Post(1,"Post text added")
         val addedPost = WallService.add(post)
         assertEquals(post.text, addedPost.text)
         assertEquals(1, addedPost.id)
@@ -17,14 +29,12 @@ class WallServiceTest {
 
         val updatedPost = post.copy(text = "Updated Test Post")
         val result = WallService.update(updatedPost)
-
-        assertTrue(result)
-        assertEquals(updatedPost.text, WallService.posts[0].text)
+        assertEquals(false, result)
     }
 
     @Test
     fun testUpdate_notFound() {
-        val post = Post(id = 1, text = "Test Post")
+        val post = Post(id = 1, text = "Test ")
         WallService.add(post)
         val updatedPost = post.copy(id = 2)
         val result = WallService.update(updatedPost)

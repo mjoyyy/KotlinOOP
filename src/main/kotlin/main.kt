@@ -7,6 +7,10 @@ data class Post (
 object WallService {
     var posts = emptyArray<Post>()
     private var nextId = 1
+    fun clear() {
+        posts = emptyArray()
+        Post(id = 0, text = "")
+    }
 
     fun add(post: Post): Post {
         posts += post.copy(id = nextId++)

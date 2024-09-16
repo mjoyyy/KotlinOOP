@@ -1,15 +1,9 @@
-
-data class Post (
-    val id: Int,
-    var text: String
-)
-
 object WallService {
     var posts = emptyArray<Post>()
     private var nextId = 1
     fun clear() {
         posts = emptyArray()
-        Post(id = 0, text = "")
+        val post = Post(id = 0, ownerId = 0, fromId = 0, createdBy = 0, text = "", reposts = 0, likes = 0, postType = "", canPin = true, canDelete = true, canEdit = true, isPinned = false, isFavorite = false)
     }
 
     fun add(post: Post): Post {
@@ -32,13 +26,4 @@ object WallService {
             println(post)
         }
     }
-}
-
-fun main(){
-    val post = Post(1, "Hello")
-    WallService.add(post)
-    WallService.add(post)
-    WallService.printAll()
-    println(WallService.update(Post(2, "Kotlin")))
-    WallService.printAll()
 }
